@@ -1,0 +1,20 @@
+.canvas {
+  display: grid;
+  grid-template-columns: repeat(3, 300px);
+  grid-auto-rows: 300px;
+  gap: 16px;
+  padding: 16px;
+  justify-content: center;
+}
+
+.cell {
+  background: #ebedf2;
+  border-radius: 10px;
+  transition: background 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.cell.over {
+  background: #e0e7ff;
+  border: 1px solid #2563eb;
+}
