@@ -8,11 +8,14 @@ interface Props {
   block: BlockItem;
 }
 
+const GRID_COLUMNS = 3;
+
 export default function Block({ block: { position, data, type, id } }: Props) {
   const { deleteBlock } = useBlocks();
 
-  const row = Math.floor(position / 3) + 1;
-  const col = (position % 3) + 1;
+  // Calculate the grid position based on a GRID_COLUMNS layout
+  const row = Math.floor(position / GRID_COLUMNS) + 1;
+  const col = (position % GRID_COLUMNS) + 1;
 
   const renderContent = () => {
     switch (type) {
@@ -33,8 +36,8 @@ export default function Block({ block: { position, data, type, id } }: Props) {
       case "text":
         return (
           <div className="text-block">
-            {(data as { content: string[] }).content.map((i) => (
-              <p>{i}</p>
+            {(data as { content: string[] }).content.map((text, index) => (
+              <p key={index}>{text}</p>
             ))}
           </div>
         );

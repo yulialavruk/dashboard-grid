@@ -9,6 +9,9 @@ import { useBlocks } from "../context/BlocksContext";
 import Block from "./Block";
 import "../styles/canvas.css";
 
+const DEFAULT_CELLS = 6; // Minimum number of cells always visible on the grid
+const EXTRA_CELLS = 4; // Extra cells added after the last occupied position
+
 export default function Canvas() {
   const { blocks, moveBlock } = useBlocks();
 
@@ -24,8 +27,8 @@ export default function Canvas() {
     moveBlock(fromId, toPosition);
   };
 
-  const maxPosition = Math.max(-1, ...blocks.map((b) => b.position));
-  const totalCells = Math.max(6, maxPosition + 4);
+  const maxPosition = Math.max(0, ...blocks.map((b) => b.position)); // Find the highest occupied grid position
+  const totalCells = Math.max(DEFAULT_CELLS, maxPosition + EXTRA_CELLS); // Determine total visible cells
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
