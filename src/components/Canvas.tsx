@@ -4,6 +4,7 @@ import {
   useDroppable,
   type DragEndEvent,
 } from "@dnd-kit/core";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { CSS } from "@dnd-kit/utilities";
 import { useBlocks } from "../context/BlocksContext";
 import Block from "./Block";
@@ -31,7 +32,7 @@ export default function Canvas() {
   const totalCells = Math.max(DEFAULT_CELLS, maxPosition + EXTRA_CELLS); // Determine total visible cells
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
       <div className="canvas">
         {Array.from({ length: totalCells }).map((_, i) => {
           const block = blocks.find((b) => b.position === i);
